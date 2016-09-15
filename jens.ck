@@ -54,62 +54,139 @@ fun void betterBass() {
 }
 
 
-fun void horns() {
+fun void horns(int note) {
   // PulseOsc s => dac; // connect a new PulseOsc to dac
-  SinOsc s => dac;
+  Brass trump => NRev rev => dac;
+  0.02 => rev.mix;
+
   while (true) {
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.whole / 2.0 => now;
 
     // one
-    0.0 => s.gain;
-    bpm.thirtysecond / 2.0 => now;
-    
-    0.1 => s.gain;
-    scale.freq(3,6) => s.freq;
-    bpm.thirtysecond / 2.0 => now;
-    
-    scale.freq(3,6) => s.freq;
+    1 => trump.stopBlowing;
     bpm.thirtysecond / 2.0 => now;
 
-    0.0 => s.gain;    
+    0.5 => trump.startBlowing;
+    scale.freq(note,6) => trump.freq;
+    bpm.thirtysecond / 2.0 => now;
+    
+    scale.freq(note,6) => trump.freq;
+    bpm.thirtysecond / 2.0 => now;
+
+    1 => trump.stopBlowing;    
     bpm.thirtysecond / 2.0 => now;
 
     // Two
-    0.0 => s.gain;    
+    1 => trump.stopBlowing;    
     bpm.thirtysecond / 2.0 => now;
 
-    0.1 => s.gain;
-    scale.freq(3,6) => s.freq;
+    0.4 => trump.startBlowing;
+    scale.freq(note,6) => trump.freq;
     bpm.sixteenth / 2.0 => now;
 
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.thirtysecond / 2.0 => now;
     
 
     // third
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.eighth / 2.0 => now;
     
     // four
-    0.0 => s.gain;    
+    1 => trump.stopBlowing;    
     bpm.sixteenth / 2.0 => now;
 
-    0.1 => s.gain;    
-    scale.freq(3,6) => s.freq;
+    0.6 => trump.startBlowing;    
+    scale.freq(note,6) => trump.freq;
     bpm.sixteenth / 2.0 => now;
     
-    scale.freq(3,6) => s.freq;
+    scale.freq(note,6) => trump.freq;
     bpm.sixteenth / 2.0 => now;
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.sixteenth / 2.0 => now;
 
     // five 
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.quarter / 2.0 => now;
-    0.0 => s.gain;
+    1 => trump.stopBlowing;
     bpm.eighth / 2.0 => now;
 
+
+    // 0.0 => s.gain;
+    // bpm.quarter / 2.0 => now;
+    // 0.0 => s.gain;
+    // bpm.eighth / 2.0 => now;
+
+    // 0.0 => s.gain;
+    // bpm.whole / 2.0 => now;
+
+    // 0.0 => s.gain;
+    // bpm.half / 2.0 => now;
+
+  }
+
+}
+
+
+fun void hornsLong(int note) {
+  // PulseOsc s => dac; // connect a new PulseOsc to dac
+  Brass trump => NRev rev => dac;
+  0.02 => rev.mix;
+
+  while (true) {
+    1 => trump.stopBlowing;
+    bpm.whole / 2.0 => now;
+
+    // one
+    1 => trump.stopBlowing;
+    bpm.thirtysecond / 2.0 => now;
+
+    0.5 => trump.startBlowing;
+    scale.freq(note,6) => trump.freq;
+    bpm.thirtysecond / 2.0 => now;
+    
+    scale.freq(note,6) => trump.freq;
+    bpm.thirtysecond / 2.0 => now;
+
+    1 => trump.stopBlowing;    
+    bpm.thirtysecond / 2.0 => now;
+
+    // Two
+    1 => trump.stopBlowing;    
+    bpm.thirtysecond / 2.0 => now;
+
+    0.4 => trump.startBlowing;
+    scale.freq(note,6) => trump.freq;
+    bpm.sixteenth / 2.0 => now;
+
+    1 => trump.stopBlowing;
+    bpm.thirtysecond / 2.0 => now;
+    
+
+    // third
+    1 => trump.stopBlowing;
+    bpm.eighth / 2.0 => now;
+    
+    // four
+    1 => trump.stopBlowing;    
+    bpm.sixteenth / 2.0 => now;
+
+    0.6 => trump.startBlowing;    
+    scale.freq(note,6) => trump.freq;
+    bpm.sixteenth / 2.0 => now;
+    
+    scale.freq(note,6) => trump.freq;
+    bpm.sixteenth / 2.0 => now;
+    // 1 => trump.stopBlowing;
+    bpm.sixteenth / 2.0 => now;
+
+    // five 
+    // 1 => trump.stopBlowing;
+    bpm.quarter / 2.0 => now;
+
+    1 => trump.stopBlowing;
+    bpm.eighth / 2.0 => now;
 
     // 0.0 => s.gain;
     // bpm.quarter / 2.0 => now;
@@ -192,16 +269,27 @@ bpm.tempo(120);
 
 spork ~ hihat();
 spork ~ snare();
-// 1*bpm.whole => now;
-// spork ~ doubleKick();
-// 1*bpm.whole => now;
+1*bpm.whole => now;
+spork ~ doubleKick();
+1*bpm.whole => now;
 spork ~ bass();
 spork ~ kick();
-// 1*bpm.whole => now;
-// 2*bpm.whole => now;
+2*bpm.whole => now;
 spork ~ guitar();
-// 2*bpm.whole => now;
-spork ~ horns();
-
-10*bpm.whole => now;
+4*bpm.whole => now;
+spork ~ horns(5);
+4*bpm.whole => now;
+spork ~ horns(3);
+1*bpm.whole => now;
+spork ~ horns(1);
+spork ~ horns(0);
+1*bpm.whole => now;
+spork ~ hornsLong(0);
+// spork ~ hornsLong(1);
+spork ~ hornsLong(2);
+spork ~ hornsLong(3);
+// spork ~ hornsLong(4);
+spork ~ hornsLong(5);
+// spork ~ hornsLong(6);
+1*bpm.whole => now;
 
