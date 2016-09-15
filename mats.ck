@@ -20,7 +20,8 @@ fun void daSaw() {
 fun void testBend() {
     TriOsc t => PitShift p => dac;
     1.0 => p.mix;
-    [BPM.sixteenth,BPM.eighth,BPM.sixteenth,BPM.sixteenth,BPM.quarter] @=> dur scratchdurations[];
+    //[BPM.sixteenth,BPM.eighth,BPM.sixteenth,BPM.sixteenth,BPM.quarter] @=> dur scratchdurations[];
+    [BPM.eighth,BPM.sixteenth,BPM.sixteenth,BPM.sixteenth,BPM.quarter,BPM.eighth,BPM.eighth,BPM.sixteenth,BPM.eighth] @=> dur scratchdurations[];
     
     0.0 => float theshift;
     scale.freq(2,5) => t.freq;
@@ -29,10 +30,10 @@ fun void testBend() {
         scale.freq(Math.random2(0,6),4) => t.freq;
         bend(p, scratchdurations[scratchindex], BPM.sixteenth);
         0.0 => t.gain;
-        BPM.thirtysecond*0.5 => now;
+        //BPM.thirtysecond => now;
         1.0 => t.gain; 
         scratchindex++;
-        if (scratchindex > 4) {
+        if (scratchindex > 8) {
             0 => scratchindex;
         }
     }
