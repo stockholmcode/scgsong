@@ -16,7 +16,7 @@ fun void kick() {         // (2) Function to play kick drum.
 fun void doubleKick() {         // (2) Function to play kick drum.
     SndBuf kick => dac;
     me.dir()+"./audio/kick_01.wav" => kick.read;
-    // only play every whole note
+
     bpm.half => now;
     0 => kick.pos;
     bpm.half => now;
@@ -51,6 +51,79 @@ fun void betterBass() {
       1 => pluck.keyOn;  
       bpm.eighth => now;
     }
+}
+
+
+fun void horns() {
+  // PulseOsc s => dac; // connect a new PulseOsc to dac
+  SinOsc s => dac;
+  while (true) {
+    0.0 => s.gain;
+    bpm.whole / 2.0 => now;
+
+    // one
+    0.0 => s.gain;
+    bpm.thirtysecond / 2.0 => now;
+    
+    0.1 => s.gain;
+    scale.freq(3,6) => s.freq;
+    bpm.thirtysecond / 2.0 => now;
+    
+    scale.freq(3,6) => s.freq;
+    bpm.thirtysecond / 2.0 => now;
+
+    0.0 => s.gain;    
+    bpm.thirtysecond / 2.0 => now;
+
+    // Two
+    0.0 => s.gain;    
+    bpm.thirtysecond / 2.0 => now;
+
+    0.1 => s.gain;
+    scale.freq(3,6) => s.freq;
+    bpm.sixteenth / 2.0 => now;
+
+    0.0 => s.gain;
+    bpm.thirtysecond / 2.0 => now;
+    
+
+    // third
+    0.0 => s.gain;
+    bpm.eighth / 2.0 => now;
+    
+    // four
+    0.0 => s.gain;    
+    bpm.sixteenth / 2.0 => now;
+
+    0.1 => s.gain;    
+    scale.freq(3,6) => s.freq;
+    bpm.sixteenth / 2.0 => now;
+    
+    scale.freq(3,6) => s.freq;
+    bpm.sixteenth / 2.0 => now;
+    0.0 => s.gain;
+    bpm.sixteenth / 2.0 => now;
+
+    // five 
+    0.0 => s.gain;
+    bpm.quarter / 2.0 => now;
+    0.0 => s.gain;
+    bpm.eighth / 2.0 => now;
+
+
+    // 0.0 => s.gain;
+    // bpm.quarter / 2.0 => now;
+    // 0.0 => s.gain;
+    // bpm.eighth / 2.0 => now;
+
+    // 0.0 => s.gain;
+    // bpm.whole / 2.0 => now;
+
+    // 0.0 => s.gain;
+    // bpm.half / 2.0 => now;
+
+  }
+
 }
 
 fun void guitar() { 
@@ -96,10 +169,10 @@ fun void hihat() {        // (4) Function to play hi-hat.
     0.1 => hihat.gain;
     // play every quarter note
     while (true) {
-        0.1 => hihat.gain;
+        0.05 => hihat.gain;
         bpm.sixteenth => now;
         0 => hihat.pos;
-        0.05 => hihat.gain;
+        0.1 => hihat.gain;
         bpm.sixteenth => now;
         0 => hihat.pos;
         0.05 => hihat.gain;
@@ -119,18 +192,16 @@ bpm.tempo(120);
 
 spork ~ hihat();
 spork ~ snare();
-1*bpm.whole => now;
-spork ~ doubleKick();
-1*bpm.whole => now;
+// 1*bpm.whole => now;
+// spork ~ doubleKick();
+// 1*bpm.whole => now;
 spork ~ bass();
 spork ~ kick();
-1*bpm.whole => now;
-
-
-2*bpm.whole => now;
-
-2*bpm.whole => now;
+// 1*bpm.whole => now;
+// 2*bpm.whole => now;
 spork ~ guitar();
+// 2*bpm.whole => now;
+spork ~ horns();
 
-12*bpm.whole => now;
+10*bpm.whole => now;
 
