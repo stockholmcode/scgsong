@@ -283,7 +283,7 @@ spork ~ horns(3);
 1*bpm.whole => now;
 spork ~ horns(1);
 spork ~ horns(0);
-1*bpm.whole => now;
+2*bpm.whole => now;
 spork ~ hornsLong(0);
 // spork ~ hornsLong(1);
 spork ~ hornsLong(2);
