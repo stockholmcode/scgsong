@@ -6,7 +6,7 @@ fun void sinwave() {
     SinOsc s => dac;
     while (true) {
         0.5 => s.gain;
-        scale.freq(0,3) => s.freq;
+        scale.freq(0,4) => s.freq;
         bpm.quarter => now;
         0.0 => s.gain;
         bpm.quarter => now;        
